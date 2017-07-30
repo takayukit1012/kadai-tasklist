@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(parms[:id])
+    @task = Task.find(params[:id])
   end
 
   def new 
@@ -24,11 +24,11 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(parms[:id])
+    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(parms[:id])
+    @task = Task.find(params[:id])
     
     if @tasks.update(task_params)
       flash[:success] = 'Taskは正常に更新されました'
@@ -40,6 +40,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    
+    flash[:success] = 'Task は正常に削除されました'
+    redirect_to task_url
+    
   end
 end
 
