@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
-berfore_action :require_user_logged_in, only: [:index, :show]
+
   def index
     @users = User.all.page(params[:page])
   end
 
   def show
     @user = User.find(params[:id])
+    redirect_to root_url if @user != current_user
   end
 
   def new
@@ -29,4 +30,4 @@ berfore_action :require_user_logged_in, only: [:index, :show]
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-  
+end
